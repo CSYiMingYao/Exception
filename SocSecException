@@ -1,0 +1,14 @@
+public class SocSecException extends Exception {
+
+	public SocSecException(){
+		super();
+	}
+
+	public String getMessage(){
+		return "Invalid social security number";
+	}
+
+	public String toString(){
+		return "Invalid social security number";
+	}
+}
