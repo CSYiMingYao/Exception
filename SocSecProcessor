@@ -1,0 +1,51 @@
+import java.util.Scanner;
+
+public class SocSecProcessor {
+
+	public static boolean isValid(String socNo) throws SocSecException	{
+		boolean flag = true;
+		if (socNo.length() != 11){
+			flag = false;
+			System.out.println("Invalid the social security number, wrong number of characters");
+			throw new SocSecException();
+		}else if (!(socNo.charAt(3) == '-' && socNo.charAt(6) == '-')){
+			System.out.println("Invalid the social security number, dashes at wrong positions");
+			throw new SocSecException();
+		}else{
+			for (int i = 0; i < socNo.length(); i++){
+				if (!Character.isDigit(socNo.charAt(i)))	{
+					flag = false;
+					System.out.println("Invalid the social security number, contains acharacter that is not a digit");
+					throw new SocSecException();
+				}
+			}
+		}
+		return flag;
+	}
+
+	public static void main(String[] args) {
+		String choice = "";
+		do{
+			Scanner scanner = new Scanner(System.in);
+			try {
+				System.out.print("Name? ");
+				String name = scanner.nextLine();
+				System.out.print("SSN? ");
+				String socNo = scanner.nextLine();
+				if (isValid(socNo)){
+					System.out.println(name + " " + socNo + " is valid");
+				}else{
+					throw new SocSecException();
+				}
+			}catch (SocSecException e){
+				System.err.println(e.getMessage());
+			}
+
+			System.out.print("Continue? ");
+			choice = scanner.next();
+			if (choice.length() > 1){
+				choice = choice.substring(0, 1);
+			}
+		} while (choice.equalsIgnoreCase("y"));
+	}
+}
